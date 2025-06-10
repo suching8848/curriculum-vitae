@@ -1,7 +1,27 @@
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --text-color: #34495e;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: #f8f9fa;
+    transition: all 0.3s ease;
+  }
+
+  .dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --nav-bg: rgba(26, 26, 26, 0.95);
+    --card-bg: #2d2d2d;
+  }
+  
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 body {
@@ -9,8 +29,57 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     max-width: 1200px;
+    margin: 60px auto 0; /* 为固定导航栏预留顶部空间 */
+    padding: 0 20px; /* 仅保留左右内边距，避免顶部内边距影响导航栏 */
+}
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    
+    .nav, 
+    .header,
+    .skill-item,
+    .contact-section {
+      background-color: var(--nav-bg);
+      color: var(--text-color);
+    }
+    
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    background: var(--nav-bg);
+}
+.project-card {
+    background: var(--card-bg);
+  }
+
+.nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+}
+
+.nav li a {
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav li a:hover {
+    background: var(--secondary-color);
+    color: white;
 }
 
 header {
@@ -18,7 +87,7 @@ header {
     flex-wrap: wrap;
     gap: 2rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--card-bg) !important;
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -92,15 +161,22 @@ header {
         height: 120px;
     }
 }
+.introduction p {
+    color: var(--text-color) !important;
+    transition: color 0.3s ease;
+  }
 
 /* 新增样式 */
 .introduction .card {
-    background: white;
+    background: var(--card-bg) !important;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
+.tag-list li {
+  background: var(--tag-bg) !important;
+  border: 1px solid var(--border-color);
+}
 .tag-list {
     display: flex;
     gap: 1rem;
@@ -119,15 +195,36 @@ header {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
+/* 增强卡片交互效果 */
 .project-card {
-    background: white;
-    padding: 1.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* 时间轴美化 */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.3rem;
+    top: 1rem;
+    width: 12px;
+    height: 12px;
+    background: var(--secondary-color);
+    border-radius: 50%;
 }
 
 .tech-stack {
@@ -147,12 +244,224 @@ header {
 
 /* 新增链接样式 */
 .contact-info a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    transition: opacity 0.3s;
+    color: var(--accent-color);
+    transition: color 0.3s ease;
 }
 
+.contact-info span {
+    color: var(--text-color);
+    opacity: 0.8;
+}
 .contact-info a:hover {
     opacity: 0.8;
     text-decoration: underline;
+}
+.swiper {
+    width: 600px;
+    height: 300px;
+}
+
+/* 导航栏基础样式 */
+.main-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px; /* 导航栏高度 */
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3498db; /* 悬停颜色 */
+}
+
+/* 响应式：小屏幕隐藏链接，显示汉堡按钮 */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+}
+
+/* 为内容区添加顶部边距，避免被导航栏遮挡 */
+body {
+    margin-top: 60px; /* 与导航栏高度一致 */
+}
+
+/* 返回顶部按钮样式 */
+.back-to-top {
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #2c3e50;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+  }
+  
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+/* 统一变量应用 */
+.header,
+.skills-section,
+.contact-section,
+.skill-item,
+.timeline-item {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* 新增边框颜色变量 */
+:root {
+  --border-color: #ddd;
+  --tag-bg: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode {
+  --border-color: #444;
+  --tag-bg: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  color: var(--text-color) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+:root {
+  --accent-color: #2196f3;
+}
+
+.dark-mode {
+  --accent-color: #64b5f6;
+}
+/* 在原有dark-mode样式后追加 */
+header {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: all 0.3s ease;
+}
+
+.profile {
+  color: var(--text-color) !important;
+}
+
+.contact-info p {
+  color: var(--text-color) !important;
+}
+
+.avatar {
+  border: 2px solid var(--text-color);
+}
+
+.tag-list li {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* 确保过渡效果 */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.profile,
+.contact-info {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+:root {
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+  --shadow-color: rgba(255, 255, 255, 0.1);
+}
+.avatar {
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+:root {
+  --accent-glow: rgba(33, 150, 243, 0.3);
+}
+
+.dark-mode {
+  --accent-glow: rgba(100, 181, 246, 0.5);
 }

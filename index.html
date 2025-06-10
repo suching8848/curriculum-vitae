@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人简历 - 张三</title>
+    <title>个人简历 - 马望轩</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
+
 <body>
+    <div class="nav">
+        <ul>
+            <li><a href="#profile">个人简介</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#contact">联系方式</a></li>
+            <button id="theme-toggle" class="nav-link">
+                <i class="fas fa-moon"></i>
+              </button>
+        </ul>
+    </div>
+    
     <header>
         <div class="profile">
             <img src="avatar.jpg" alt="个人头像" class="avatar">
@@ -110,7 +126,47 @@
             </div>
         </section>
     </main>
+    <section class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="project1.png" alt="项目1">
+            </div>
+            <div class="swiper-slide">
+                <img src="project2.png" alt="项目2">
+            </div>
+            <div class="swiper-slide">
+                <img src="project3.png" alt="项目3">
+            </div>
+        </div>
+        <!-- 分页器 -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      
+    </section>
+    </section>
+    <button id="backToTop" class="back-to-top">↑</button>
+</body>
+
+    <script src="css/swiper-bundle.min.js"></script>
 
     <script src="script.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          pagination: {
+            el: ".swiper-pagination",
+            type: "progressbar",
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      </script>
+
+
 </body>
+
+<script src="script.js"></script>
 </html>
