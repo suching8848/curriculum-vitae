@@ -169,26 +169,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// 返回顶部功能
-// 确保正确获取按钮元素
-const backToTop = document.getElementById('backToTop');
-
-// 加强滚动监听（调试用）
-window.addEventListener('scroll', () => {
-  console.log('当前滚动位置：', window.scrollY); // 添加调试日志
-  backToTop.classList.toggle('show', window.scrollY > 50);
-});
-
-// 检查按钮是否存在
-console.log('按钮元素：', backToTop); // 确认元素获取成功
-
-backToTop.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-});
-
 // 增加强制重绘逻辑
 function forceReflow(element) {
   element.offsetHeight;
@@ -204,3 +184,51 @@ themeToggle.addEventListener('click', () => {
     el.style.display = '';
   });
 });
+
+// 添加立即执行
+window.dispatchEvent(new Event('scroll'));
+
+// 修改滚动监听为
+window.addEventListener('scroll', () => {
+    const showHeight = 200;
+    const currentOpacity = window.scrollY > showHeight ? 1 : 0.5;
+    backToTop.style.opacity = currentOpacity;
+    console.log('按钮元素尺寸：', backToTop.offsetWidth, backToTop.offsetHeight);
+    console.log('窗口滚动位置：', window.scrollY);
+});
+
+// 返回顶部功能（优化版）
+function initBackToTop() { 
+    const backToTop = document.getElementById('backToTop'); 
+    if (!backToTop) return; // 防止按钮不存在时出错
+
+    const scrollHandler = () => { 
+        const showThreshold = 200; 
+        const isVisible = window.scrollY > showThreshold; 
+        backToTop.style.opacity = isVisible ? '1' : '0.5'; 
+        backToTop.style.pointerEvents = isVisible ? 'all' : 'none'; 
+    }; 
+
+    const smoothScroll = (e) => { 
+        e.preventDefault(); 
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }; 
+
+    // 绑定事件
+    backToTop.addEventListener('click', smoothScroll); 
+    backToTop.addEventListener('touchend', smoothScroll); 
+
+    // 初始化滚动状态
+    scrollHandler(); 
+    window.addEventListener('scroll', scrollHandler); 
+
+    // 调试日志（移至函数内部）
+    console.log('返回顶部按钮尺寸:', backToTop.offsetWidth, 'x', backToTop.offsetHeight); 
+}
+
+// 确保DOM加载后初始化
+document.addEventListener('DOMContentLoaded', initBackToTop);
+document.addEventListener('swiperSlideChange', initBackToTop);
+
+// 调试日志
+console.log('返回顶部按钮尺寸:', backToTop.offsetWidth, 'x', backToTop.offsetHeight);
