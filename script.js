@@ -197,38 +197,47 @@ window.addEventListener('scroll', () => {
     console.log('窗口滚动位置：', window.scrollY);
 });
 
-// 返回顶部功能（优化版）
-function initBackToTop() { 
-    const backToTop = document.getElementById('backToTop'); 
-    if (!backToTop) return; // 防止按钮不存在时出错
-
-    const scrollHandler = () => { 
-        const showThreshold = 200; 
-        const isVisible = window.scrollY > showThreshold; 
-        backToTop.style.opacity = isVisible ? '1' : '0.5'; 
-        backToTop.style.pointerEvents = isVisible ? 'all' : 'none'; 
-    }; 
-
-    const smoothScroll = (e) => { 
-        e.preventDefault(); 
-        window.scrollTo({ top: 0, behavior: 'smooth' }); 
-    }; 
-
-    // 绑定事件
-    backToTop.addEventListener('click', smoothScroll); 
-    backToTop.addEventListener('touchend', smoothScroll); 
-
-    // 初始化滚动状态
-    scrollHandler(); 
-    window.addEventListener('scroll', scrollHandler); 
-
-    // 调试日志（移至函数内部）
-    console.log('返回顶部按钮尺寸:', backToTop.offsetWidth, 'x', backToTop.offsetHeight); 
+// 返回顶部功能
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM加载完成');
+    const backToTop = document.getElementById('backToTop');
+  
+    if (backToTop) {
+      console.log('找到返回按钮元素');
+      backToTop.classList.remove('show');
+  
+      // scroll 事件监听器中重新使用变量时作用域错误
+      window.addEventListener('scroll', () => {
+        requestAnimationFrame(() => {
+          console.log('当前滚动位置:', window.scrollY);
+          backToTop.classList.toggle('show', window.scrollY > 200);
+        });
+      });
+  
+      backToTop.addEventListener('click', (e) => {
+        console.log('点击返回顶部按钮');
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    } else {
+      console.error('返回顶部按钮元素未找到');
+    }
+  });
+  
+// 雷达图初始化
+function initSkillRadar() {
+  const radarCanvas = document.getElementById('skill-radar');
+  if (!radarCanvas) return;
+  
+  const ctx = radarCanvas.getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js'],
+            datasets: [{
+                data: [95, 90, 85, 80, 75],
+                backgroundColor: 'rgba(52, 152, 219, 0.2)'
+            }]
+        }
+    });
 }
-
-// 确保DOM加载后初始化
-document.addEventListener('DOMContentLoaded', initBackToTop);
-document.addEventListener('swiperSlideChange', initBackToTop);
-
-// 调试日志
-console.log('返回顶部按钮尺寸:', backToTop.offsetWidth, 'x', backToTop.offsetHeight);

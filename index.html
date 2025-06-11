@@ -146,8 +146,41 @@
     </section>
     </section>
 
-    <button id="backToTop" class="back-to-top">↑</button>
+    <!-- 返回顶部按钮 -->
+    <div id="backToTop" class="back-to-top">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+      </svg>
+    </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const backToTop = document.getElementById('backToTop');
+  
+      if (!backToTop) {
+        console.error('未找到返回顶部按钮');
+        return;
+      }
+  
+      backToTop.style.position = 'fixed';
+      backToTop.style.bottom = '40px';
+      backToTop.style.right = '40px';
+      backToTop.style.cursor = 'pointer';
+      backToTop.style.opacity = 0;
+      backToTop.style.transition = 'opacity 0.3s ease';
+      
+      window.addEventListener('scroll', () => {
+        const shouldShow = window.scrollY > 200;
+        backToTop.style.opacity = shouldShow ? 1 : 0;
+        backToTop.style.pointerEvents = shouldShow ? 'auto' : 'none';
+      });
+  
+      backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
 
 <script src="css/swiper-bundle.min.js"></script>
 <script src="script.js"></script>
